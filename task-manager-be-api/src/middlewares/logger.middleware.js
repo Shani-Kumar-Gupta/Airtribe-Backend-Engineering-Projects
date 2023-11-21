@@ -4,9 +4,9 @@ const fs = require('fs');
 function logger(req, res, next) {
   let currentdate = new Date();
   let datetime =
-    currentdate.getDay() +
+    currentdate.getDate() +
     '/' +
-    currentdate.getMonth() +
+    (currentdate.getMonth() + 1) +
     '/' +
     currentdate.getFullYear() +
     ' @ ' +
@@ -20,14 +20,16 @@ function logger(req, res, next) {
     requestMethod: req.method,
     requestTime: datetime,
   };
-  let logReport = requestLoggerData.requestLogs;
-  logReport.push(logObj);
+  let logsData = JSON.parse(JSON.stringify(requestLoggerData));
+  logsData.requestLogs.push(logObj);
+  console.log('logs:', logsData);
   try {
-    fs.writeFileSync(
-      '../resource/logs.json',
-      JSON.parse(JSON.stringify(logReport)),
-      { encoding: 'utf8', flag: 'w' }
-    );
+    let data = JSON.stringify(logsData);
+    console.log(data);
+    fs.writeFileSync('./src/resource/logs.json', data, {
+      encoding: 'utf8',
+      flag: 'w',
+    });
   } catch (error) {
     console.log(`Encountered error while writing log: ${error}`);
   }
