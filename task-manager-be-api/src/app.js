@@ -2,6 +2,7 @@ const express = require('express');
 const routes = express.Router();
 const bodyParser = require('body-parser');
 const { loggerMiddleware } = require('./middlewares');
+const { taskManagerRouter } = require('./routes');
 require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
@@ -19,6 +20,8 @@ routes.get('/', (req, res) => {
     .status(200)
     .send(`<h1>Welcome To Task Manager Application Backend API</h1>`);
 });
+
+routes.use('/taskManager', taskManagerRouter);
 
 /* CREATE and LISTEN Server */
 app.listen(PORT, (err) => {
