@@ -31,6 +31,7 @@ function logger(req, res, next) {
   } catch (error) {
     console.log(`Encountered error while writing log: ${error}`);
   }
+  next();
 }
 
 module.exports = logger;
