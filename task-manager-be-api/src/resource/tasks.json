@@ -23,8 +23,8 @@
     },
     {
       "taskId": 4,
-      "title": "Test Title",
-      "description": "Test description",
+      "title": "JavaScript",
+      "description": "Learning JavaScript + DSA",
       "completionStatus": false,
       "priorityLevel": "low"
     }

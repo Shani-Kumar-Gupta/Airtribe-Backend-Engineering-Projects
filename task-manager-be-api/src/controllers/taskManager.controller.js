@@ -48,7 +48,33 @@ function createTask(req, res, next) {
   }
 }
 
-function updateTask(req, res, next) {}
+function updateTask(req, res, next) {
+  let taskId = req.params.taskId;
+  let taskUpdateBody = req.body;
+  let existingTasks = JSON.parse(JSON.stringify(tasksData));
+  if (!existingTasks.tasks.some(task => task.taskId == taskId)) {
+    return res.status(404).json({
+      status: 404,
+      message: 'Provided task id does not exist.'
+    });
+  } else {
+    try {
+      let idx = existingTasks.tasks.findIndex(task => task.taskId == taskId);
+      existingTasks.tasks[idx] = { ...existingTasks.tasks[idx], ...taskUpdateBody };
+      let updatedTask = JSON.stringify(existingTasks);
+      fs.writeFileSync('./src/resource/tasks.json', updatedTask, {
+        encoding: 'utf8',
+        flag: 'w',
+      });
+      return res.status(200).json({
+        status: 200,
+        message: 'Task updated successfully!'
+      });
+    } catch (error) {
+      console.log(`Encountered error while writing task: ${error}`);
+    }
+  }
+}
 
 function deleteTask(req, res, next) {}
 
