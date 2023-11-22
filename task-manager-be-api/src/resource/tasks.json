@@ -4,19 +4,22 @@
       "taskId": 1,
       "title": "Learn NodeJS",
       "description": "Learn the basics of NodeJS and their modules.",
-      "completionStatus": "completed"
+      "completionStatus": true,
+      "priorityLevel": "low"
     },
     {
       "taskId": 2,
       "title": "Learn ExpressJS",
       "description": "Learn the basics of ExpressJS, Routers and Controller.",
-      "completionStatus": "in-progress"
+      "completionStatus": false,
+      "priorityLevel": "high"
     },
     {
       "taskId": 3,
       "title": "Learn React",
       "description": "Learn ReactJS core concept and Hooks.",
-      "completionStatus": "incompleted"
+      "completionStatus": true,
+      "priorityLevel": "medium"
     }
   ]
 }

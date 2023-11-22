@@ -22,7 +22,6 @@ function logger(req, res, next) {
   };
   let logsData = JSON.parse(JSON.stringify(requestLoggerData));
   logsData.requestLogs.push(logObj);
-  console.log('logs:', logsData);
   try {
     let data = JSON.stringify(logsData);
     console.log(data);
