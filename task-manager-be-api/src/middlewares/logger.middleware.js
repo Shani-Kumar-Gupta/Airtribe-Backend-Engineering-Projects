@@ -24,7 +24,6 @@ function logger(req, res, next) {
   logsData.requestLogs.push(logObj);
   try {
     let data = JSON.stringify(logsData);
-    console.log(data);
     fs.writeFileSync('./src/resource/logs.json', data, {
       encoding: 'utf8',
       flag: 'w',
