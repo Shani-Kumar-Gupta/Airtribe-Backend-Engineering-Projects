@@ -5,7 +5,22 @@ const fs = require('fs');
 
 function getTasks(req, res, next) {
   try {
-    return res.status(200).send(tasksData);
+    let filter = req.query.completionStatus;
+    if (filter == 'true' || filter == 'false') {
+      let taskArr = JSON.parse(JSON.stringify(tasksData));
+      let filteredTaskBasisCompletionStatus = taskArr.tasks.filter(
+        (task) => task.completionStatus?.toString() == filter
+      );
+      if (filteredTaskBasisCompletionStatus.length) {
+        return res.status(200).send(filteredTaskBasisCompletionStatus);
+      } else {
+        return res
+          .status(404)
+          .send(`No tasks found basis completion status: ${filter}`);
+      }
+    } else {
+      return res.status(200).send(tasksData);
+    }
   } catch (error) {
     return res.status(500).json({
       status: 500,
