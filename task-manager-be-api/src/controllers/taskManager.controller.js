@@ -19,6 +19,29 @@ function getTasks(req, res, next) {
           .status(404)
           .send(`No tasks found basis completion status: ${filter}`);
       }
+    } else if (sortBy) {
+      if (sortBy == 'ascending' || sortBy == 'descending') {
+        let taskArr = JSON.parse(JSON.stringify(tasksData));
+        let sortedResult = taskArr.tasks.sort((a, b) => {
+          if (sortBy == 'ascending') {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+          } else if (sortBy == 'descending') {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          }
+        });
+        if (sortedResult.length) {
+          return res.status(200).send(sortedResult);
+        } else {
+          return res
+            .status(404)
+            .send(`No tasks found basis sort by: ${sortBy}`);
+        }
+      } else {
+        return res.status(400).json({
+          status: 400,
+          message: 'Invalid sort by!'
+        });
+      }
     } else {
       return res.status(200).send(tasksData);
     }
@@ -60,7 +83,7 @@ function createTask(req, res, next) {
       let dd = today.getDate();
       if (dd < 10) dd = '0' + dd;
       if (mm < 10) mm = '0' + mm;
-      const formattedToday = dd + '/' + mm + '/' + yyyy;
+      const formattedToday = yyyy + '/' + mm + '/' + dd;
 
       let task = {
         taskId: body.taskId,
@@ -68,7 +91,7 @@ function createTask(req, res, next) {
         description: body.description,
         completionStatus: body.completionStatus,
         priorityLevel: body.priorityLevel,
-        createdAt: formattedToday
+        createdAt: formattedToday,
       };
       let data = JSON.parse(JSON.stringify(tasksData));
       data.tasks.push(task);
