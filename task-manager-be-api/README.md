@@ -13,6 +13,8 @@ Implement a RESTful API with the following endpoints:
 * GET /tasks: Retrieve all tasks.
 * GET /tasks/:id: Retrieve a single task by its ID.
 * GET /tasks/priority/:level: Retrieve task(s) by its priority level
+* GET /tasks?completionStatus=(true || false): Retrieve task(s) by its completion status
+* GET /tasks?sortBy=(ascending || descending): Retrieve task(s) by its sort
 * POST /tasks: Create a new task.
 * PUT /tasks/:id: Update an existing task by its ID.
 * DELETE /tasks/:id: Delete a task by its ID.
@@ -52,3 +54,5 @@ Resource Name: tasks
 4. To Update a task: `/taskManager/tasks/:taskId` Method: `PUT`
 5. To Delete a task: `/taskManager/tasks/:taskId` Method: `DELETE`
 6. To Get a tasks basis priority level: `/taskManager/tasks/:priorityLevel` Method: `GET` 
+7. To filter tasks based on completion Status: `/taskManager/tasks?completionStatus=(true || false)` Method: `GET`
+8. To sort tasks by created time: `/taskManager/tasks?sortBy=(ascending || descending)` Method: `GET`
