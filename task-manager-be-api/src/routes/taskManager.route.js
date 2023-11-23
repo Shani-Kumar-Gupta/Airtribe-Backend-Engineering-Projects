@@ -17,4 +17,7 @@ taskManagerRouter.put('/tasks/:taskId', taskManagerController.updateTask);
 /* Delete Task by Task Id */
 taskManagerRouter.delete('/tasks/:taskId', taskManagerController.deleteTask);
 
+/* Get Tasks Basis on Priority Level */
+taskManagerRouter.get('/tasks/priority/:level', taskManagerController.getTasksBasisPriority);
+
 module.exports = taskManagerRouter;

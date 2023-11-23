@@ -1,3 +1,4 @@
+const { checkPriorityLevel } = require('../helpers');
 const tasksData = require('../resource/tasks.json');
 const { TaskManagerValidator } = require('../services');
 const fs = require('fs');
@@ -92,10 +93,14 @@ function deleteTask(req, res, next) {
     try {
       let idx = finalTaskData.tasks.findIndex((task) => task.taskId == taskId);
       finalTaskData.tasks.splice(idx, 1);
-      fs.writeFileSync('./src/resource/tasks.json', JSON.stringify(finalTaskData), {
-        encoding: 'utf8',
-        flag: 'w',
-      });
+      fs.writeFileSync(
+        './src/resource/tasks.json',
+        JSON.stringify(finalTaskData),
+        {
+          encoding: 'utf8',
+          flag: 'w',
+        }
+      );
       return res.status(200).json({
         status: 200,
         message: 'Task deleted successfully!',
@@ -106,4 +111,37 @@ function deleteTask(req, res, next) {
   }
 }
 
-module.exports = { getTasks, getByTaskId, createTask, updateTask, deleteTask };
+function getTasksBasisPriority(req, res, next) {
+  let priorityLevel = req.params.level;
+  if (checkPriorityLevel(priorityLevel)) {
+    let tasks = JSON.parse(JSON.stringify(tasksData));
+    let filteredPriorityTasks = tasks.tasks.filter(
+      (task) => task.priorityLevel?.toLowerCase() == priorityLevel.toLowerCase()
+    );
+    if (filteredPriorityTasks.length) {
+      return res.status(200).json({
+        status: 200,
+        data: filteredPriorityTasks,
+      });
+    } else {
+      return res.send(404).json({
+        status: 404,
+        message: `No tasks found for ${priorityLevel} priority.`,
+      });
+    }
+  } else {
+    return res.status(400).json({
+      status: 400,
+      message: 'Invalid priority level.',
+    });
+  }
+}
+
+module.exports = {
+  getTasks,
+  getByTaskId,
+  createTask,
+  updateTask,
+  deleteTask,
+  getTasksBasisPriority,
+};
