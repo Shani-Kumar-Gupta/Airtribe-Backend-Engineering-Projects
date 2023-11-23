@@ -5,21 +5,32 @@
       "title": "Learn NodeJS",
       "description": "Learn the basics of NodeJS and their modules.",
       "completionStatus": true,
-      "priorityLevel": "low"
+      "priorityLevel": "low",
+      "createdAt": "13/11/2023"
     },
     {
       "taskId": 2,
       "title": "Learn ExpressJS",
       "description": "Learn the basics of ExpressJS, Routers and Controller.",
       "completionStatus": false,
-      "priorityLevel": "high"
+      "priorityLevel": "high",
+      "createdAt": "10/11/2023"
     },
     {
       "taskId": 3,
       "title": "Learn React",
       "description": "Learn ReactJS core concept and Hooks.",
       "completionStatus": true,
-      "priorityLevel": "medium"
+      "priorityLevel": "medium",
+      "createdAt": "22/11/2023"
+    },
+    {
+      "taskId": 4,
+      "title": "Learn REST API Paradigm",
+      "description": "Learn best practices and restful endpoint with features",
+      "completionStatus": false,
+      "priorityLevel": "high",
+      "createdAt": "23/11/2023"
     }
   ]
 }

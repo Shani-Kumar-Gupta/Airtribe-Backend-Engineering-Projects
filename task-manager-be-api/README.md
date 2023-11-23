@@ -12,6 +12,7 @@ Implement a RESTful API with the following endpoints:
 
 * GET /tasks: Retrieve all tasks.
 * GET /tasks/:id: Retrieve a single task by its ID.
+* GET /tasks/priority/:level: Retrieve task(s) by its priority level
 * POST /tasks: Create a new task.
 * PUT /tasks/:id: Update an existing task by its ID.
 * DELETE /tasks/:id: Delete a task by its ID.
@@ -45,7 +46,7 @@ As a part of backend application and API development, I have used the below-ment
 Application content: taskManager<br>
 Resource Name: tasks
 
-1. To Get a list of all tasks: `/taskManager/tasks` Method: `GET`
+1. To Get a list of all tasks with filter query params: `/taskManager/tasks` Method: `GET`
 2. To Get a specific task basis task id: `/taskManager/tasks/:taskId` Method: `GET`
 3. To Create a task: `/taskManager/tasks` Method: `POST`
 4. To Update a task: `/taskManager/tasks/:taskId` Method: `PUT`

@@ -6,6 +6,7 @@ const fs = require('fs');
 function getTasks(req, res, next) {
   try {
     let filter = req.query.completionStatus;
+    let sortBy = req.query.sortBy;
     if (filter == 'true' || filter == 'false') {
       let taskArr = JSON.parse(JSON.stringify(tasksData));
       let filteredTaskBasisCompletionStatus = taskArr.tasks.filter(
@@ -53,12 +54,21 @@ function createTask(req, res, next) {
     let body = req.body;
     let validationResult = TaskManagerValidator.validateTaskRequestBody(body);
     if (validationResult.status) {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      let mm = today.getMonth() + 1;
+      let dd = today.getDate();
+      if (dd < 10) dd = '0' + dd;
+      if (mm < 10) mm = '0' + mm;
+      const formattedToday = dd + '/' + mm + '/' + yyyy;
+
       let task = {
         taskId: body.taskId,
         title: body.title,
         description: body.description,
         completionStatus: body.completionStatus,
         priorityLevel: body.priorityLevel,
+        createdAt: formattedToday
       };
       let data = JSON.parse(JSON.stringify(tasksData));
       data.tasks.push(task);
