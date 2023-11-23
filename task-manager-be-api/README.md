@@ -29,12 +29,12 @@ Implement a RESTful API with the following endpoints:
 
 ## Initial Project Setup:
 
-Used below npm command to initialize the project-
+Used the below-mentioned npm command to initialize the project-
 `npm init`
 
 ## Dependencies:
 
-As a part of backend application and API development, I have used below mentioned packages or modules as a dependencies-
+As a part of backend application and API development, I have used the below-mentioned packages or modules as dependencies-
 1. express
 2. body-parser
 3. dotenv
@@ -42,7 +42,7 @@ As a part of backend application and API development, I have used below mentione
 
 ## Endpoint Implemented:
 
-Application content: taskManager
+Application content: taskManager<br>
 Resource Name: tasks
 
 1. To Get a list of all tasks: `/taskManager/tasks` Method: `GET`
