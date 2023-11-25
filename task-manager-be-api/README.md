@@ -35,6 +35,37 @@ Implement a RESTful API with the following endpoints:
 Used the below-mentioned npm command to initialize the project-
 `npm init`
 
+## Follow the below commands to run the project locally on your system:
+
+1. Clone the repository:
+
+   ```bash
+   https://github.com/Shani-Kumar-Gupta/Airtribe-Backend-Engineering-Projects.git
+   ```
+2. Open the cloned repository
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd task-manager-be-api
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Run the application
+
+   ```bash
+   npm start
+   ```
+   Alternative to run the application
+   ```bash
+   npm run dev
+   ```
+
 ## Dependencies:
 
 As a part of backend application and API development, I have used the below-mentioned packages or modules as dependencies-
