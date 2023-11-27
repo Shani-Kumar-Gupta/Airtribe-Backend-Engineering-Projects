@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const routes = express.Router();
 const bodyParser = require('body-parser');
+const { authRouter, newsAggregatorRouter } = require('./routes');
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,6 +15,12 @@ routes.get('/', (req, res) => {
     .status(200)
     .send(`<h1>Welcome To News Aggregator Backend API Application</h1>`);
 });
+
+/* Auth Router */
+routes.use('/auth', authRouter);
+
+/* News Aggregator Router */
+routes.use('/newsAggregator', newsAggregatorRouter);
 
 /* CREATE and LISTEN Server */
 app.listen(PORT, (err) => {
