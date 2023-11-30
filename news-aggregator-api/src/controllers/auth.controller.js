@@ -1,4 +1,7 @@
-const registerUserController = (req, res, next) => { };
+const registerUserController = (req, res, next) => {
+  let body = req.body;
+  
+};
 
 const loginUserController = (req, res, next) => { }
 
