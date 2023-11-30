@@ -34,3 +34,5 @@ const requestLoggerMiddleware = (req, res, next) => {
     console.log(`Encountered error while writing log: ${error}`);
   }
 };
+
+module.exports = requestLoggerMiddleware;

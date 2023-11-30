@@ -11,6 +11,7 @@ const PORT = PORT || 3000;
 /* Middlewares */
 app.use(requestLoggerMiddleware);
 app.use(bodyParser.json());
+app.use(routes);
 
 /* Routers */
 routes.get('/', (req, res) => {
