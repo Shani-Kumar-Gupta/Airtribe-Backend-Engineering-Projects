@@ -3,6 +3,11 @@ const usersDetails = require('../db/users.json');
 const bcrypt = require('bcrypt');
 const { DATE_TIME } = require('../constants');
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
+const {
+  JWT_SECRET_KEY,
+  JWT_ACCESS_TOKEN_EXPIRATION_TIME,
+} = require('../config/env.config');
 
 const registerUserController = (req, res, next) => {
   let body = req.body;
@@ -55,7 +60,38 @@ const registerUserController = (req, res, next) => {
   }
 };
 
-const loginUserController = (req, res, next) => {};
+const loginUserController = (req, res, next) => {
+  let body = req.body;
+  let isUservalidated = UserDetailsValidator.validateLoginRequestInfo(body);
+  if (isUservalidated.status) {
+    let accessToken = jwt.sign(
+      {
+        id: isUservalidated.userData?.userId,
+        email: isUservalidated.userData?.email,
+        userName: isUservalidated.userData?.userName,
+      },
+      JWT_SECRET_KEY,
+      { expiresIn: JWT_ACCESS_TOKEN_EXPIRATION_TIME }
+    );
+    if (accessToken) {
+      return res.status(200).json({
+        userEmail: isUservalidated.userData?.email,
+        message: 'Login successful!',
+        accessToken: accessToken,
+      });
+    } else {
+      return res.status(500).json({
+        status: 500,
+        message: 'Access Token generation failed! Please try again!',
+      });
+    }
+  } else {
+    return res.status(isUservalidated.statusCode).json({
+      status: isUservalidated.statusCode,
+      message: isUservalidated.message,
+    });
+  }
+};
 
 module.exports = {
   registerUserController,

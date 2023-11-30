@@ -78,6 +78,7 @@ class UserDetailsValidator {
             status: true,
             statusCode: 200,
             message: 'User email and password validated successfully!',
+            userData: userData
           };
         } else {
           return {
