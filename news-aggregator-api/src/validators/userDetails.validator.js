@@ -2,23 +2,23 @@ const { USER_ROLES } = require('../constants');
 const usersDetails = require('../db/users.json');
 
 class UserDetailsValidator {
-  static validateUserDetailsRequestInfo(userDetails) {
+  static validateUserDetailsRequestInfo(userDetail) {
     if (
-      userDetails.hasOwnProperty('userName') &&
-      userDetails.hasOwnProperty('email') &&
-      userDetails.hasOwnProperty('password') &&
-      userDetails.hasOwnProperty('role')
+      userDetail.hasOwnProperty('userName') &&
+      userDetail.hasOwnProperty('email') &&
+      userDetail.hasOwnProperty('password') &&
+      userDetail.hasOwnProperty('role')
     ) {
-      let usersData = JSON.parse(JSON.stringify(userDetails));
+      let usersData = JSON.parse(JSON.stringify(usersDetails));
       let isUserNameExists = usersData.users.findIndex(
-        (user) => user.userName === userDetails.userName
+        (user) => user.userName === userDetail.userName
       );
       if (isUserNameExists == -1) {
         let isEmailAlreadyExists = usersData.users.findIndex(
-          (user) => user.email === userDetails.email
+          (user) => user.email === userDetail.email
         );
         if (isEmailAlreadyExists == -1) {
-          let checkIsValidRole = USER_ROLES.includes(userDetails.role);
+          let checkIsValidRole = USER_ROLES.includes(userDetail.role);
           if (checkIsValidRole) {
             return {
               status: true,
