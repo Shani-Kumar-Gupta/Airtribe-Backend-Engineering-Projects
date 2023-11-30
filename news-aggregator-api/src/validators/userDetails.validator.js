@@ -1,5 +1,6 @@
 const { USER_ROLES } = require('../constants');
 const usersDetails = require('../db/users.json');
+const bcrypt = require('bcrypt');
 
 class UserDetailsValidator {
   static validateUserDetailsRequestInfo(userDetail) {
@@ -51,6 +52,52 @@ class UserDetailsValidator {
         status: false,
         statusCode: 400,
         message: `Invalid used details! Something is missing!`,
+      };
+    }
+  }
+
+  static validateLoginRequestInfo(userDetail) {
+    if (
+      userDetail.hasOwnProperty('email') &&
+      userDetail.hasOwnProperty('password')
+    ) {
+      let usersData = JSON.parse(JSON.stringify(usersDetails));
+      let isEmailAlreadyExists = usersData.users.findIndex(
+        (user) => user.email === userDetail.email
+      );
+      if (isEmailAlreadyExists == -1) {
+        let userData = usersData.users.filter(
+          (user) => user.email === userDetail.email
+        );
+        let isUserPasswordValid = bcrypt.compareSync(
+          userDetail.password,
+          userData.password
+        );
+        if (isUserPasswordValid) {
+          return {
+            status: true,
+            statusCode: 200,
+            message: 'User email and password validated successfully!',
+          };
+        } else {
+          return {
+            status: false,
+            statusCode: 401,
+            message: 'Invalid user password! Please provide correct password!',
+          };
+        }
+      } else {
+        return {
+          status: false,
+          statusCode: 404,
+          message: `User not found with email ${userDetail.email}`,
+        };
+      }
+    } else {
+      return {
+        status: false,
+        statusCode: 400,
+        message: 'Invalid user login information! Something is missing',
       };
     }
   }
