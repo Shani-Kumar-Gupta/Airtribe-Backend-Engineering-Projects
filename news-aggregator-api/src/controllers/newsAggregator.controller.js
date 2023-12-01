@@ -7,7 +7,7 @@ const { NEWS_AGGREGATOR_API_KEY } = require('../config/env.config');
 // const URI_NEWSAPI_EVERYTHING = 'https://newsapi.org/v2/everything';
 const URI_NEWSAPI_TOP = 'https://newsapi.org/v2/top-headlines';
 
-/* Get User News Preferences API endpoint */
+/* Get User News Preferences Controller */
 const getUsersNewsPreferencesController = (req, res, next) => {
   const { userId, userName, userEmail, message } = req;
   if (userId) {
@@ -35,7 +35,7 @@ const getUsersNewsPreferencesController = (req, res, next) => {
   }
 };
 
-/* Update User News Preferences API endpoint */
+/* Update User News Preferences Controller */
 const updateUsersNewsPreferencesController = (req, res, next) => {
   const { userId, userName, userEmail, message } = req;
   if (userId) {
@@ -133,8 +133,9 @@ const updateUsersNewsPreferencesController = (req, res, next) => {
   }
 };
 
+/* Get News basis User Preferences Controller */
 const getNewsBasisPreferencesController = async (req, res, next) => {
-  const { userId = '101', userName, userEmail, message } = req;
+  const { userId, userName, userEmail, message } = req;
   if (userId) {
     let userPreferences = JSON.parse(JSON.stringify(usersPreferences));
     let filteredPreference = userPreferences?.userPreferences?.filter(
@@ -152,11 +153,10 @@ const getNewsBasisPreferencesController = async (req, res, next) => {
           apiKey: NEWS_AGGREGATOR_API_KEY,
         };
         let searchParams = new URLSearchParams(payload);
-        console.log("hey data")
         let newsRes = await fetchNews(`${URI_NEWSAPI_TOP}?${searchParams}`);
         return res.status(200).json({
           status: 200,
-          data: 'Hello Man',
+          data: newsRes?.articles,
         });
       } catch (error) {
         return res.status(500).json({
