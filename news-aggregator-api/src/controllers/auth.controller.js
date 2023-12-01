@@ -38,7 +38,7 @@ const registerUserController = (req, res, next) => {
           if (err) {
             return res.status(500).json({
               status: 500,
-              message: `Writing users in memory db failed: ${error}`,
+              message: `Writing users in memory db failed: ${err}`,
             });
           } else {
             return res.status(500).json({
