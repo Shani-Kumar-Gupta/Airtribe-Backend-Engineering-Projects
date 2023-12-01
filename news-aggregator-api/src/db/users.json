@@ -7,6 +7,30 @@
       "password": "test@1234",
       "role": "admin",
       "createdAt": "21/11/2023 @ 23:35:4"
+    },
+    {
+      "userId": 102,
+      "userName": "ShaniKGupta",
+      "email": "shani@gmail.com",
+      "password": "$2b$08$NAHzWadPKLc6lm/PjNbh6ORmrMMskWRLVixIDzAj0VapkwmeKiwTq",
+      "role": "admin",
+      "createdAt": "1/12/2023 @ 10:39:9"
+    },
+    {
+      "userId": 103,
+      "userName": "ShaniKGupta1",
+      "email": "shani@@gmail.com",
+      "password": "$2b$08$xN67/Z5S/gaHOJRU.4zwNutkthl28jYlTmlnnZvNNZ/2O5Y7xtMhe",
+      "role": "admin",
+      "createdAt": "1/12/2023 @ 10:43:55"
+    },
+    {
+      "userId": 104,
+      "userName": "ShaniKGupta11",
+      "email": "test123@gmail.com",
+      "password": "$2b$08$CCANCA/GOYDYNNEkscja5eaQRGo.OJdi8/2zGm8ULYZikc/Qtz7m.",
+      "role": "normal",
+      "createdAt": "1/12/2023 @ 10:49:46"
     }
   ]
 }

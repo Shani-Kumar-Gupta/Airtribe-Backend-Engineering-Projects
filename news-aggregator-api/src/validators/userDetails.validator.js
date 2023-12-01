@@ -15,29 +15,40 @@ class UserDetailsValidator {
         (user) => user.userName === userDetail.userName
       );
       if (isUserNameExists == -1) {
-        let isEmailAlreadyExists = usersData.users.findIndex(
-          (user) => user.email === userDetail.email
-        );
-        if (isEmailAlreadyExists == -1) {
-          let checkIsValidRole = USER_ROLES.includes(userDetail.role);
-          if (checkIsValidRole) {
-            return {
-              status: true,
-              statusCode: 200,
-              message: 'User details Validated successfully!',
-            };
+        let isValidEmail = function (email) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        };
+        if (isValidEmail(userDetail.email)) {
+          let isEmailAlreadyExists = usersData.users.findIndex(
+            (user) => user.email === userDetail.email
+          );
+          if (isEmailAlreadyExists == -1) {
+            let checkIsValidRole = USER_ROLES.includes(userDetail.role);
+            if (checkIsValidRole) {
+              return {
+                status: true,
+                statusCode: 200,
+                message: 'User details Validated successfully!',
+              };
+            } else {
+              return {
+                status: false,
+                statusCode: 400,
+                message: 'Invalid user role. Please provide a valid role!',
+              };
+            }
           } else {
             return {
               status: false,
-              statusCode: 400,
-              message: 'Invalid user role. Please provide a valid role!',
+              statusCode: 403,
+              message: 'Email already exists! Please use different email id!',
             };
           }
         } else {
           return {
             status: false,
-            statusCode: 403,
-            message: 'Email already exists! Please use different email id!',
+            statusCode: 400,
+            message: `Invalid email address! Please provide a valid email address`,
           };
         }
       } else {
@@ -78,7 +89,7 @@ class UserDetailsValidator {
             status: true,
             statusCode: 200,
             message: 'User email and password validated successfully!',
-            userData: userData
+            userData: userData,
           };
         } else {
           return {
