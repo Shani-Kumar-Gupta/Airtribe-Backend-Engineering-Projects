@@ -9,8 +9,10 @@ const {
   JWT_ACCESS_TOKEN_EXPIRATION_TIME,
 } = require('../config/env.config');
 
+/* Register User Controller */
 const registerUserController = (req, res, next) => {
   let body = req.body;
+  /* Validating user provided request body for registration */
   let isUservalidated =
     UserDetailsValidator.validateUserDetailsRequestInfo(body);
   if (isUservalidated.status) {
@@ -60,8 +62,10 @@ const registerUserController = (req, res, next) => {
   }
 };
 
+/* Login User Controller */
 const loginUserController = (req, res, next) => {
   let body = req.body;
+  /* validating user provided request body for login */
   let isUservalidated = UserDetailsValidator.validateLoginRequestInfo(body);
   if (isUservalidated.status) {
     let accessToken = jwt.sign(

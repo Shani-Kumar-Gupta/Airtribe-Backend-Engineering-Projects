@@ -1,7 +1,6 @@
 const fs = require('fs');
 const requestLoggerData = require('../db/requestLogger.json');
 const { DATE_TIME } = require('../constants');
-// const path = require('path');
 
 /* Request details logger middleware */
 const requestLoggerMiddleware = (req, res, next) => {
@@ -21,6 +20,7 @@ const requestLoggerMiddleware = (req, res, next) => {
   } catch (error) {
     console.log(`Encountered error while writing log: ${error}`);
   }
+  next();
 };
 
 module.exports = requestLoggerMiddleware;

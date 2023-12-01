@@ -1,14 +1,14 @@
 require('dotenv').config();
 
 const {
-  PORT,
+  PORT_NUMBER,
   JWT_SECRET_KEY,
   JWT_ACCESS_TOKEN_EXPIRATION_TIME,
   NEWS_AGGREGATOR_API_KEY,
 } = process.env;
 
 module.exports = {
-  PORT,
+  PORT_NUMBER,
   JWT_SECRET_KEY,
   JWT_ACCESS_TOKEN_EXPIRATION_TIME,
   NEWS_AGGREGATOR_API_KEY,
