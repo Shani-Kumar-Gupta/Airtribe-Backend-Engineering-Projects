@@ -1,6 +1,11 @@
 const usersDetails = require('../db/users.json');
 const usersPreferences = require('../db/usersPreference.json');
 const fs = require('fs');
+const URLSearchParams = require('url-search-params');
+const { fetchNews } = require('../services/newsapi.service');
+const { NEWS_AGGREGATOR_API_KEY } = require('../config/env.config');
+// const URI_NEWSAPI_EVERYTHING = 'https://newsapi.org/v2/everything';
+const URI_NEWSAPI_TOP = 'https://newsapi.org/v2/top-headlines';
 
 /* Get User News Preferences API endpoint */
 const getUsersNewsPreferencesController = (req, res, next) => {
@@ -128,7 +133,44 @@ const updateUsersNewsPreferencesController = (req, res, next) => {
   }
 };
 
-const getNewsBasisPreferencesController = (req, res, next) => {};
+const getNewsBasisPreferencesController = async (req, res, next) => {
+  const { userId = '101', userName, userEmail, message } = req;
+  if (userId) {
+    let userPreferences = JSON.parse(JSON.stringify(usersPreferences));
+    let filteredPreference = userPreferences?.userPreferences?.filter(
+      (userPreferences) => userPreferences.userId == userId
+    );
+    if (
+      filteredPreference.length &&
+      (filteredPreference[0].preferences.categories.length ||
+        filteredPreference[0].preferences.sources.length)
+    ) {
+      try {
+        let payload = {
+          sources:
+            'techcrunch' || filteredPreference[0].preferences.sources.join(','),
+          apiKey: NEWS_AGGREGATOR_API_KEY,
+        };
+        let searchParams = new URLSearchParams(payload);
+        console.log("hey data")
+        let newsRes = await fetchNews(`${URI_NEWSAPI_TOP}?${searchParams}`);
+        return res.status(200).json({
+          status: 200,
+          data: 'Hello Man',
+        });
+      } catch (error) {
+        return res.status(500).json({
+          error: error,
+        });
+      }
+    }
+  } else {
+    return res.status(403).json({
+      status: 403,
+      message: message,
+    });
+  }
+};
 
 module.exports = {
   getUsersNewsPreferencesController,

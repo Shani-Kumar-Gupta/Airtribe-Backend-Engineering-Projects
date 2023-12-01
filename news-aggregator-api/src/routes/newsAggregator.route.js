@@ -16,10 +16,10 @@ newsAggregatorRoutes.put(
   newsAggregatorController.updateUsersNewsPreferencesController
 );
 
-/* Fetch news routes */
+/* Fetch all news routes */
 newsAggregatorRoutes.get(
   '/news',
-  verifyJWTToken,
+  // verifyJWTToken,
   newsAggregatorController.getNewsBasisPreferencesController
 );
 
