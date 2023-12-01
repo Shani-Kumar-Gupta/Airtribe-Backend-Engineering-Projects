@@ -70,9 +70,9 @@ const loginUserController = (req, res, next) => {
   if (isUservalidated.status) {
     let accessToken = jwt.sign(
       {
-        id: isUservalidated.userData?.userId,
-        email: isUservalidated.userData?.email,
-        userName: isUservalidated.userData?.userName,
+        id: isUservalidated.userData[0]?.userId,
+        email: isUservalidated.userData[0]?.email,
+        userName: isUservalidated.userData[0]?.userName,
       },
       JWT_SECRET_KEY,
       { expiresIn: JWT_ACCESS_TOKEN_EXPIRATION_TIME }

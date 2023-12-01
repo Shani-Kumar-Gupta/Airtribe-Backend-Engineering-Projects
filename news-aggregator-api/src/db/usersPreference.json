@@ -3,8 +3,8 @@
     {
       "userId": "101",
       "preferences": {
-        "categories": [],
-        "sources": []
+        "categories": ["health","technology","sports"],
+        "sources": ["google-news-in"]
       }
     }
   ]
