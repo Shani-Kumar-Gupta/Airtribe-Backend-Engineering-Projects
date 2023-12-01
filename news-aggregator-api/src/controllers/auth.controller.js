@@ -79,7 +79,7 @@ const loginUserController = (req, res, next) => {
     );
     if (accessToken) {
       return res.status(200).json({
-        userEmail: isUservalidated.userData?.email,
+        userEmail: isUservalidated.userData[0].email,
         message: 'Login successful!',
         accessToken: accessToken,
       });

@@ -76,13 +76,14 @@ class UserDetailsValidator {
       let isEmailAlreadyExists = usersData.users.findIndex(
         (user) => user.email === userDetail.email
       );
-      if (isEmailAlreadyExists == -1) {
+      if (isEmailAlreadyExists !== -1) {
         let userData = usersData.users.filter(
           (user) => user.email === userDetail.email
         );
+        // console.log('userdata: ' + JSON.stringify(userData));
         let isUserPasswordValid = bcrypt.compareSync(
           userDetail.password,
-          userData.password
+          userData[0].password
         );
         if (isUserPasswordValid) {
           return {
