@@ -142,27 +142,31 @@ const getNewsBasisPreferencesController = async (req, res, next) => {
       (userPreferences) => userPreferences.userId == userId
     );
     if (
-      filteredPreference.length &&
-      (filteredPreference[0].preferences.categories.length ||
-        filteredPreference[0].preferences.sources.length)
+      filteredPreference.length && filteredPreference[0].preferences.sources.length
     ) {
       try {
         let payload = {
-          sources:
-            'techcrunch' || filteredPreference[0].preferences.sources.join(','),
+          sources: filteredPreference[0].preferences.sources?.join(','),
           apiKey: NEWS_AGGREGATOR_API_KEY,
         };
-        let searchParams = new URLSearchParams(payload);
-        let newsRes = await fetchNews(`${URI_NEWSAPI_TOP}?${searchParams}`);
-        return res.status(200).json({
+        let searchParams = new URLSearchParams(payload).toString();
+        let newsRes = await fetchNews(
+          `${URI_NEWSAPI_TOP}?${searchParams}`
+        );
+        return res.status(newsRes.status).json({
           status: 200,
-          data: newsRes?.articles,
+          data: newsRes?.data?.articles,
         });
       } catch (error) {
         return res.status(500).json({
           error: error,
         });
       }
+    } else {
+      return res.status(404).json({
+        status: 400,
+        message: 'User preferences not found! Pleaseupdate the new preferences first!'
+      });
     }
   } else {
     return res.status(403).json({

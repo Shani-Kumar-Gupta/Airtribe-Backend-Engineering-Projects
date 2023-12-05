@@ -1,1 +1,11 @@
-{"userPreferences":[{"userId":"101","preferences":{"categories":["health","technology"],"sources":["google-news-in"]}}]}
+{
+  "userPreferences": [
+    {
+      "userId": "101",
+      "preferences": {
+        "categories": ["health", "technology"],
+        "sources": ["techcrunch"]
+      }
+    }
+  ]
+}
